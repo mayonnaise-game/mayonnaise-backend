@@ -20,10 +20,12 @@ function login(req, res, next) {
     // set cookie key as user-uuid, and value as uuid, domain is api.yoriquiz.site expires in 1 day
 
     res.cookie("user-uuid", uuid, {
-      domain: "yoriquiz.site",
-      expires: new Date(Date.now() + 86400000),
-      secure: true, // this will set the Secure flag
+      maxAge: 365 * 24 * 60 * 60 * 1000, // Cookie expiration time in milliseconds (1 year in this example)
       httpOnly: true, // this will set the HttpOnly flag
+      secure: true, // this will set the Secure flag
+      sameSite: "None",
+      domain: ".yoriquiz.site",
+      // expires: new Date(Date.now() + 86400000),
     });
     res.json(result);
   } catch (err) {
