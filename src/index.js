@@ -18,6 +18,7 @@ const corsOptions = {
     "http://localhost:3000",
     "https://local.yoriquiz.site",
     "https://yoriquiz.site",
+    'https://team-2-frontend-six.vercel.app/',
   ],
   credentials: true,
 };
