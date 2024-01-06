@@ -44,13 +44,13 @@ export function getCurrentGame(req, res, next) {
     console.log("currentServerGameData", currentServerGameData?.currentRecipe?.RCP_NM)
     const gameId = uuidv4();
     // 새로운 게임으로 교체
+    const currentRecipe = recipeDataList[randomInt];
+    currentServerGameData.currentRecipe = currentRecipe;
     const currentRecipeFoodName = currentServerGameData?.currentRecipe?.RCP_NM;
     // don't replace whitespace
 
     // const answerBlankData = currentRecipeFoodName.replace(/[ㄱ-ㅣ가-힣a-zA-Z0-9]/g, "_");
     const answerBlankData = currentRecipeFoodName?.replace(/[가-힣]/g, "_");
-    const currentRecipe = recipeDataList[randomInt];
-    currentServerGameData.currentRecipe = currentRecipe;
 
     currentServerGameData.gameId = gameId;
     currentServerGameData.startTime = new Date().toISOString();
