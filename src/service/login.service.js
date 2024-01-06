@@ -23,6 +23,7 @@ function login(req, res, next) {
       domain: "api.yoriquiz.site",
       expires: new Date(Date.now() + 86400000),
       sameSite: "none",
+      secure: true,
     });
     res.json(result);
   } catch (err) {
