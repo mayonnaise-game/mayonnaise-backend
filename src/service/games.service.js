@@ -26,16 +26,28 @@ export async function getCurrentGame(req, res, next) {
 
 
   const timeDiff = currentTime - previousStartTime;
+  let currentRecipe;
+  let randomInt;
   console.log("timeDiff", timeDiff / 1000)
+  let recipeHintServer = [];
+
+
+
+  let result = {
+    gameId: "",
+    startTime: "",
+    answerBlankData: "",
+    recipeData: [],
+  }
   // 130초가 지났을 때
   if (timeDiff > 1000 * 130) {
     // if (true) {
 
     // random integer between 0 and 999
-    const randomInt = Math.floor(Math.random() * 1000);
     const recipeDataList = recipeData;
     // console.log("recipeDataList", recipeDataList)
-    const currentRecipe = recipeDataList[randomInt];
+    randomInt = Math.floor(Math.random() * 1000)
+    currentRecipe = recipeDataList[randomInt];
     const gameId = uuidv4();
     // 새로운 게임으로 교체
     const currentRecipeFoodName = currentRecipe.RCP_NM;
@@ -70,203 +82,97 @@ export async function getCurrentGame(req, res, next) {
   }
 
   // 0초 이상 20초 미만 지났을 때 
+
   if (1000 * 0 <= timeDiff && timeDiff < 1000 * 20) {
+    // random integer between 0 and 999
+    const recipeDataList = recipeData;
 
-    const result = {
-      data: {
-        gameId: currentGameData.gameId,
-        startTime: currentGameData.startTime,
-        answerBlankData: currentGameData.answerBlankData,
-        // recipeHint: currentGameData.recipeHint,
-        recipeHint: ["hint1"],
+    const recipeIndex = currentGameData.recipeIndex ?? Math.floor(Math.random() * 1000);
+    currentGameData.recipeIndex = recipeIndex;
 
-      },
-      message: "success"
-    }
+    currentRecipe = recipeDataList[currentGameData.recipeIndex];
 
-    try {
-      res.setHeader("Content-Type", "application/json");
-      // set cookie key as user-uuid, and value as uuid, domain is api.yoriquiz.site expires in 1 day
-      res.json(result);
-
-      return;
-
-    } catch (err) {
-      next(err);
+    const initialCompleteFoodImage = currentRecipe.ATT_FILE_NO_MAIN
+    result = {
+      gameId: currentGameData.gameId,
+      startTime: currentGameData.startTime,
+      answerBlankData: currentGameData.answerBlankData,
+      // recipeHint: currentGameData.recipeHint,
+      recipeHint: [initialCompleteFoodImage],
     }
 
   }
   // 20초 이상 40초 미만 지났을 때 
   if (1000 * 20 <= timeDiff && timeDiff < 1000 * 40) {
-
-    const result = {
-      data: {
-        gameId: currentGameData.gameId,
-        startTime: currentGameData.startTime,
-        answerBlankData: currentGameData.answerBlankData,
-        // recipeHint: currentGameData.recipeHint,
-        recipeHint: ["hint1", "hint2"],
-
-      },
-      message: "success"
+    result = {
+      gameId: currentGameData.gameId,
+      startTime: currentGameData.startTime,
+      answerBlankData: currentGameData.answerBlankData,
+      // recipeHint: currentGameData.recipeHint,
+      recipeHint: ["hint1", "hint2"],
     }
-
-    try {
-      res.setHeader("Content-Type", "application/json");
-      // set cookie key as user-uuid, and value as uuid, domain is api.yoriquiz.site expires in 1 day
-      res.json(result);
-
-      return;
-
-    } catch (err) {
-      next(err);
-    }
-
   }
 
   // 40초 이상 60초 미만 지났을 때 
   if (1000 * 40 <= timeDiff && timeDiff < 1000 * 60) {
-
-    const result = {
-      data: {
-        gameId: currentGameData.gameId,
-        startTime: currentGameData.startTime,
-        answerBlankData: currentGameData.answerBlankData,
-        // recipeHint: currentGameData.recipeHint,
-        recipeHint: ["hint1", "hint2", "hint3"]
-
-      },
-      message: "success"
+    result = {
+      gameId: currentGameData.gameId,
+      startTime: currentGameData.startTime,
+      answerBlankData: currentGameData.answerBlankData,
+      // recipeHint: currentGameData.recipeHint,
+      recipeHint: ["hint1", "hint2", "hint3"]
     }
-
-    try {
-      res.setHeader("Content-Type", "application/json");
-      // set cookie key as user-uuid, and value as uuid, domain is api.yoriquiz.site expires in 1 day
-      res.json(result);
-
-      return;
-
-    } catch (err) {
-      next(err);
-    }
-
   }
 
 
   // 60초 이상 80초 미만 지났을 때 
   if (1000 * 60 <= timeDiff && timeDiff < 1000 * 80) {
-
-    const result = {
-      data: {
-        gameId: currentGameData.gameId,
-        startTime: currentGameData.startTime,
-        answerBlankData: currentGameData.answerBlankData,
-        // recipeHint: currentGameData.recipeHint,
-        recipeHint: ["hint1", "hint2", "hint3", "hint4"]
-
-      },
-      message: "success"
+    result = {
+      gameId: currentGameData.gameId,
+      startTime: currentGameData.startTime,
+      answerBlankData: currentGameData.answerBlankData,
+      // recipeHint: currentGameData.recipeHint,
+      recipeHint: ["hint1", "hint2", "hint3", "hint4"]
     }
-
-    try {
-      res.setHeader("Content-Type", "application/json");
-      // set cookie key as user-uuid, and value as uuid, domain is api.yoriquiz.site expires in 1 day
-      res.json(result);
-
-      return;
-
-    } catch (err) {
-      next(err);
-    }
-
   }
 
   // 80초 이상 100초 미만 지났을 때 
   if (1000 * 80 <= timeDiff && timeDiff < 1000 * 100) {
-
-    const result = {
-      data: {
-        gameId: currentGameData.gameId,
-        startTime: currentGameData.startTime,
-        answerBlankData: currentGameData.answerBlankData,
-        // recipeHint: currentGameData.recipeHint,
-        recipeHint: ["hint1", "hint2", "hint3", "hint4", "hint5"]
-
-      },
-      message: "success"
+    result = {
+      gameId: currentGameData.gameId,
+      startTime: currentGameData.startTime,
+      answerBlankData: currentGameData.answerBlankData,
+      // recipeHint: currentGameData.recipeHint,
+      recipeHint: ["hint1", "hint2", "hint3", "hint4", "hint5"]
     }
-
-    try {
-      res.setHeader("Content-Type", "application/json");
-      // set cookie key as user-uuid, and value as uuid, domain is api.yoriquiz.site expires in 1 day
-      res.json(result);
-
-      return;
-
-    } catch (err) {
-      next(err);
-    }
-
   }
 
 
   // 100초 이상 120초 미만 지났을 때 
   if (1000 * 100 <= timeDiff && timeDiff < 1000 * 120) {
-
-    const result = {
-      data: {
-        gameId: currentGameData.gameId,
-        startTime: currentGameData.startTime,
-        answerBlankData: currentGameData.answerBlankData,
-        // recipeHint: currentGameData.recipeHint,
-        recipeHint: ["hint1", "hint2", "hint3", "hint4", "hint5", "hint6"]
-      },
-      message: "success"
+    result = {
+      gameId: currentGameData.gameId,
+      startTime: currentGameData.startTime,
+      answerBlankData: currentGameData.answerBlankData,
+      // recipeHint: currentGameData.recipeHint,
+      recipeHint: ["hint1", "hint2", "hint3", "hint4", "hint5", "hint6"]
     }
-
-    try {
-      res.setHeader("Content-Type", "application/json");
-      // set cookie key as user-uuid, and value as uuid, domain is api.yoriquiz.site expires in 1 day
-      res.json(result);
-
-      return;
-
-    } catch (err) {
-      next(err);
-    }
-
   }
 
   // 120초 이상 130초 미만 지났을 때 
   if (1000 * 120 <= timeDiff && timeDiff < 1000 * 130) {
-
-    const result = {
-      data: {
-        gameId: currentGameData.gameId,
-        startTime: currentGameData.startTime,
-        answerBlankData: currentGameData.answerBlankData,
-        recipeHint: currentGameData.recipeHint,
-      },
-      message: "success"
+    result = {
+      gameId: currentGameData.gameId,
+      startTime: currentGameData.startTime,
+      answerBlankData: currentGameData.answerBlankData,
+      recipeHint: currentGameData.recipeHint,
     }
-
-    try {
-      res.setHeader("Content-Type", "application/json");
-      // set cookie key as user-uuid, and value as uuid, domain is api.yoriquiz.site expires in 1 day
-      res.json(result);
-
-      return;
-
-    } catch (err) {
-      next(err);
-    }
-
   }
 
   try {
     res.setHeader("Content-Type", "application/json");
     // set cookie key as user-uuid, and value as uuid, domain is api.yoriquiz.site expires in 1 day
-    res.json({ "message": "no data" });
+    res.json({ data: { ...result, debugTimeDiff: timeDiff / 1000 }, message: "success" });
 
     return;
 
