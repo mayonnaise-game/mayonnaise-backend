@@ -21,9 +21,14 @@ export const recipeData = JSON.parse(
 ).COOKRCP01.row;
 
 export const currentGameData = {
-  recipeIndex: null, //
-  gameId: "",
+  recipeIndex: null, // 
+  gameId: null,
   startTime: new Date().toISOString(),
-  answerBlankData: "",
-  recipeHint: [],
-};
+  answerBlankData: null,
+  mainImageUrl: null,
+  hint1: null,
+  hint2: null,
+  // 서버에서만 사용
+  currentRecipe: null,
+}
+
