@@ -45,7 +45,7 @@ export function getCurrentGame(req, res, next) {
     const gameId = uuidv4();
     // 새로운 게임으로 교체
     const currentRecipeFoodName = currentServerGameData?.currentRecipe?.RCP_NM;
-    const answerBlankData = currentRecipeFoodName.replace(/[가-힣]/g, "_");
+    const answerBlankData = currentRecipeFoodName.replace(/[ㄱ-ㅣ가-힣a-zA-Z0-9]/g, "_");
     const currentRecipe = recipeDataList[randomInt];
     currentServerGameData.currentRecipe = currentRecipe;
 
