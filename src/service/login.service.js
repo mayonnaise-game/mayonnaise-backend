@@ -20,7 +20,7 @@ function login(req, res, next) {
     // set cookie key as user-uuid, and value as uuid, domain is api.yoriquiz.site expires in 1 day
 
     res.cookie("user-uuid", uuid, {
-      domain: "yoriquiz.site",
+      domain: ".yoriquiz.site",
       expires: new Date(Date.now() + 86400000),
       secure: true,    // this will set the Secure flag
       httpOnly: true   // this will set the HttpOnly flag
