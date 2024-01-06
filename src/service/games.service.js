@@ -31,7 +31,7 @@ export async function getCurrentGame(req, res, next) {
   console.log("timeDiff", timeDiff / 1000)
   let recipeHintServer = [];
 
-
+  const currentServerGameData = currentGameData;
 
   let result = {
     gameId: "",
@@ -54,18 +54,18 @@ export async function getCurrentGame(req, res, next) {
     const answerBlankData = currentRecipeFoodName.replace(/[가-힣]/g, "_");
 
 
-    currentGameData.gameId = gameId;
-    currentGameData.startTime = new Date().toISOString();
-    currentGameData.answerBlankData = answerBlankData;
-    currentGameData.recipeHint = [];
-    currentGameData.currentRecipe = currentRecipe;
+    currentServerGameData.gameId = gameId;
+    currentServerGameData.startTime = new Date().toISOString();
+    currentServerGameData.answerBlankData = answerBlankData;
+    currentServerGameData.recipeHint = [];
+    currentServerGameData.currentRecipe = currentRecipe;
 
     const result = {
       data: {
-        gameId: currentGameData.gameId,
-        startTime: currentGameData.startTime,
-        answerBlankData: currentGameData.answerBlankData,
-        recipeHint: currentGameData.recipeHint,
+        gameId: currentServerGameData.gameId,
+        startTime: currentServerGameData.startTime,
+        answerBlankData: currentServerGameData.answerBlankData,
+        recipeHint: currentServerGameData.recipeHint,
       },
       message: "success"
     }
@@ -81,93 +81,69 @@ export async function getCurrentGame(req, res, next) {
     }
   }
 
-  // 0초 이상 20초 미만 지났을 때 
-
-  if (1000 * 0 <= timeDiff && timeDiff < 1000 * 20) {
+  // 0초 이상 40초 미만 지났을 때 
+  if (1000 * 0 <= timeDiff && timeDiff < 1000 * 40) {
     // random integer between 0 and 999
     const recipeDataList = recipeData;
 
-    const recipeIndex = currentGameData.recipeIndex ?? Math.floor(Math.random() * 1000);
-    currentGameData.recipeIndex = recipeIndex;
+    const recipeIndex = currentServerGameData.recipeIndex ?? Math.floor(Math.random() * 1000);
+    currentServerGameData.recipeIndex = recipeIndex;
 
-    currentRecipe = recipeDataList[currentGameData.recipeIndex];
+    currentRecipe = recipeDataList[currentServerGameData.recipeIndex];
 
     const initialCompleteFoodImage = currentRecipe.ATT_FILE_NO_MAIN
+    currentServerGameData.recipeHint = [initialCompleteFoodImage]
     result = {
-      gameId: currentGameData.gameId,
-      startTime: currentGameData.startTime,
-      answerBlankData: currentGameData.answerBlankData,
-      // recipeHint: currentGameData.recipeHint,
+      gameId: currentServerGameData.gameId,
+      startTime: currentServerGameData.startTime,
+      answerBlankData: currentServerGameData.answerBlankData,
+      // recipeHint: currentServerGameData.recipeHint,
       recipeHint: [initialCompleteFoodImage],
     }
 
   }
-  // 20초 이상 40초 미만 지났을 때 
-  if (1000 * 20 <= timeDiff && timeDiff < 1000 * 40) {
+  // 40초 이상 80초 미만 지났을 때 
+  if (1000 * 40 <= timeDiff && timeDiff < 1000 * 80) {
+
+    const recipeDataList = recipeData;
+
+    const recipeIndex = currentServerGameData.recipeIndex ?? Math.floor(Math.random() * 1000);
+    currentServerGameData.recipeIndex = recipeIndex;
+
+    currentRecipe = recipeDataList[currentServerGameData.recipeIndex];
+    const initialCompleteFoodImage = currentRecipe.ATT_FILE_NO_MAIN
+
     result = {
-      gameId: currentGameData.gameId,
-      startTime: currentGameData.startTime,
-      answerBlankData: currentGameData.answerBlankData,
-      // recipeHint: currentGameData.recipeHint,
+      gameId: currentServerGameData.gameId,
+      startTime: currentServerGameData.startTime,
+      answerBlankData: currentServerGameData.answerBlankData,
+      // recipeHint: currentServerGameData.recipeHint,
       recipeHint: ["hint1", "hint2"],
     }
   }
 
-  // 40초 이상 60초 미만 지났을 때 
-  if (1000 * 40 <= timeDiff && timeDiff < 1000 * 60) {
+  // 80초 이상 120초 미만 지났을 때 
+  if (1000 * 80 <= timeDiff && timeDiff < 1000 * 120) {
     result = {
-      gameId: currentGameData.gameId,
-      startTime: currentGameData.startTime,
-      answerBlankData: currentGameData.answerBlankData,
-      // recipeHint: currentGameData.recipeHint,
+      gameId: currentServerGameData.gameId,
+      startTime: currentServerGameData.startTime,
+      answerBlankData: currentServerGameData.answerBlankData,
+      // recipeHint: currentServerGameData.recipeHint,
       recipeHint: ["hint1", "hint2", "hint3"]
-    }
-  }
-
-
-  // 60초 이상 80초 미만 지났을 때 
-  if (1000 * 60 <= timeDiff && timeDiff < 1000 * 80) {
-    result = {
-      gameId: currentGameData.gameId,
-      startTime: currentGameData.startTime,
-      answerBlankData: currentGameData.answerBlankData,
-      // recipeHint: currentGameData.recipeHint,
-      recipeHint: ["hint1", "hint2", "hint3", "hint4"]
-    }
-  }
-
-  // 80초 이상 100초 미만 지났을 때 
-  if (1000 * 80 <= timeDiff && timeDiff < 1000 * 100) {
-    result = {
-      gameId: currentGameData.gameId,
-      startTime: currentGameData.startTime,
-      answerBlankData: currentGameData.answerBlankData,
-      // recipeHint: currentGameData.recipeHint,
-      recipeHint: ["hint1", "hint2", "hint3", "hint4", "hint5"]
-    }
-  }
-
-
-  // 100초 이상 120초 미만 지났을 때 
-  if (1000 * 100 <= timeDiff && timeDiff < 1000 * 120) {
-    result = {
-      gameId: currentGameData.gameId,
-      startTime: currentGameData.startTime,
-      answerBlankData: currentGameData.answerBlankData,
-      // recipeHint: currentGameData.recipeHint,
-      recipeHint: ["hint1", "hint2", "hint3", "hint4", "hint5", "hint6"]
     }
   }
 
   // 120초 이상 130초 미만 지났을 때 
   if (1000 * 120 <= timeDiff && timeDiff < 1000 * 130) {
     result = {
-      gameId: currentGameData.gameId,
-      startTime: currentGameData.startTime,
-      answerBlankData: currentGameData.answerBlankData,
-      recipeHint: currentGameData.recipeHint,
+      gameId: currentServerGameData.gameId,
+      startTime: currentServerGameData.startTime,
+      answerBlankData: currentServerGameData.answerBlankData,
+      // recipeHint: currentServerGameData.recipeHint,
+      recipeHint: ["hint1", "hint2", "hint3"]
     }
   }
+
 
   try {
     res.setHeader("Content-Type", "application/json");
