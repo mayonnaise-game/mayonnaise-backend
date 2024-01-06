@@ -7,6 +7,7 @@ import leaderboardRouter from "./routes/leaderboard.route.js";
 import loginRouter from "./routes/login.route.js";
 import chatRouter from "./routes/chat.route.js";
 import cors from "cors";
+import gamesRouter from "./routes/games.route.js";
 
 const app = express();
 const port = 8080;
@@ -24,7 +25,7 @@ app.use(cookieParser());
 app.use("/leaderboard", leaderboardRouter);
 app.use("/chats", chatRouter);
 app.use("/login", loginRouter);
-
+app.use("/games", gamesRouter);
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}!`);
 });

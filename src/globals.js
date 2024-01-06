@@ -1,3 +1,5 @@
+import { readFileSync } from "fs";
+
 const leaderboard = [];
 const userMap = new Map(); // {uuid: {username, score, heart}}
 const chats = {
@@ -9,3 +11,15 @@ const chats = {
 
 
 export { leaderboard, userMap, chats };
+
+
+export const recipeData = JSON.parse(readFileSync("./src/data/recipe.json", "utf-8")).COOKRCP01.row;
+
+export const currentGameData = {
+  recipeIndex: null, // 
+  gameId: "",
+  startTime: new Date().toISOString(),
+  answerBlankData: "",
+  recipeHint: [],
+}
+
