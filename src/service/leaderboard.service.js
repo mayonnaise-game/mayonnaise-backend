@@ -1,4 +1,4 @@
-import { leaderboard } from "../globals";
+import { leaderboard } from "../globals.js";
 
 const getLeaderboard = (req, res, next) => {
   res.send(leaderboard);
