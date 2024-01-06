@@ -5,7 +5,11 @@ import { nextGame } from "../reset/nextGame.js";
 const SCORE = 100;
 
 const getChats = (req, res, next) => {
-  const { "user-uuid": userUuid } = req.cookies;
+  // const { "user-uuid": userUuid } = req.cookies;
+
+  const { "user-uuid": cookieUuid } = req.cookies;
+
+  const userUuid = cookieUuid ?? req.query.userUuid;
   try {
     authUuid(userUuid);
 
@@ -45,6 +49,12 @@ const getChats = (req, res, next) => {
 };
 
 const addChat = (req, res, next) => {
+
+
+  const { "user-uuid": cookieUuid } = req.cookies;
+
+  const userUuid = cookieUuid ?? req.query.userUuid;
+
   try {
     authUuid(userUuid);
 
