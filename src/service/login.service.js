@@ -18,9 +18,12 @@ function login(req, res, next) {
   try {
     res.setHeader("Content-Type", "application/json");
     // set cookie key as user-uuid, and value as uuid, domain is api.yoriquiz.site expires in 1 day
+
     res.cookie("user-uuid", uuid, {
-      domain: ".yoriquiz.site",
-      maxAge: 86400000,
+      domain: "yoriquiz.site",
+      expires: new Date(Date.now() + 86400000),
+      secure: true,    // this will set the Secure flag
+      httpOnly: true   // this will set the HttpOnly flag
     });
     res.json(result);
   } catch (err) {
