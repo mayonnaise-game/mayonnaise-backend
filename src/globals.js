@@ -1,25 +1,29 @@
-import { readFileSync } from "fs";
+import { readFileSync, writeFileSync } from "fs";
 
-const leaderboard = [];
-const userMap = new Map(); // {uuid: {username, score, heart}}
-const chats = {
+export const leaderboard = JSON.parse(
+  readFileSync("./src/data/leaderboard.json", "utf-8")
+);
+
+export function writeLeaderboard() {
+  writeFileSync("./src/data/leaderboard.json", JSON.stringify(leaderboard));
+}
+export const userMap = new Map(); // {uuid: {username, score, heart}}
+
+export const chats = {
   MAX_LENGTH: 1000,
   THRESHOLD: 2000, // THRESHOLD 보다 커지면 MAX_LENGTH가 되도록 자름
   startIndex: 0,
   data: [],
 };
 
-
-export { leaderboard, userMap, chats };
-
-
-export const recipeData = JSON.parse(readFileSync("./src/data/recipe.json", "utf-8")).COOKRCP01.row;
+export const recipeData = JSON.parse(
+  readFileSync("./src/data/recipe.json", "utf-8")
+).COOKRCP01.row;
 
 export const currentGameData = {
-  recipeIndex: null, // 
+  recipeIndex: null, //
   gameId: "",
   startTime: new Date().toISOString(),
   answerBlankData: "",
   recipeHint: [],
-}
-
+};
