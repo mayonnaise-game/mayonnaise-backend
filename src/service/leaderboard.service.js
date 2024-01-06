@@ -8,9 +8,7 @@ const getLeaderboard = (req, res, next) => {
 
 const addLeaderboard = (req, res, next) => {
   const { "user-uuid": cookieUuid } = req.cookies;
-
   const userUuid = cookieUuid ?? req.query.userUuid;
-
   try {
     authUuid(userUuid);
 
