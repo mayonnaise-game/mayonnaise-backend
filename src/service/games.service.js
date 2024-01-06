@@ -2,7 +2,7 @@ import { currentGameData, recipeData } from "../globals.js";
 import { v4 as uuidv4 } from 'uuid';
 import { getRecipeStepImageListFromObject } from "../utils/getRecipeStepImageListFromObject.js";
 
-export async function getCurrentGame(req, res, next) {
+export function getCurrentGame(req, res, next) {
 
 
   // 비인가 유저 막음 
@@ -42,6 +42,7 @@ export async function getCurrentGame(req, res, next) {
     hint1: null,
     hint2: null
   }
+
   // 130초가 지났을 때
   if (timeDiff > 1000 * 130) {
     // if (true) {
@@ -51,6 +52,7 @@ export async function getCurrentGame(req, res, next) {
     // console.log("recipeDataList", recipeDataList)
     randomInt = Math.floor(Math.random() * 1000)
     currentRecipe = recipeDataList[randomInt];
+    console.log("currentServerGameData", currentServerGameData?.currentRecipe?.RCP_NM)
     const gameId = uuidv4();
     // 새로운 게임으로 교체
     const currentRecipeFoodName = currentRecipe.RCP_NM;
@@ -61,7 +63,10 @@ export async function getCurrentGame(req, res, next) {
     currentServerGameData.startTime = new Date().toISOString();
     currentServerGameData.answerBlankData = answerBlankData;
     currentServerGameData.mainImageUrl = currentRecipe.ATT_FILE_NO_MAIN;
+    currentServerGameData.hint1 = null;
+    currentServerGameData.hint2 = null;
 
+    currentServerGameData.currentRecipe = currentRecipe;
     result = {
       gameId: currentServerGameData.gameId,
       startTime: currentServerGameData.startTime,
@@ -81,6 +86,7 @@ export async function getCurrentGame(req, res, next) {
     const recipeDataList = recipeData;
     randomInt = Math.floor(Math.random() * 1000)
     currentServerGameData.currentRecipe = currentServerGameData.currentRecipe ?? recipeDataList[randomInt];
+    console.log("currentServerGameData", currentServerGameData?.currentRecipe?.RCP_NM)
 
 
     const currentRecipeFoodName = currentServerGameData.currentRecipe.RCP_NM;
@@ -116,8 +122,9 @@ export async function getCurrentGame(req, res, next) {
 
     currentRecipe = recipeDataListFile[currentServerGameData.recipeIndex];
 
-    const recipeStepImageList = getRecipeStepImageListFromObject(currentRecipe);
+    const recipeStepImageList = getRecipeStepImageListFromObject(currentServerGameData?.currentRecipe);
     currentServerGameData.hint1 = recipeStepImageList;
+    console.log("currentServerGameData", currentServerGameData?.currentRecipe?.RCP_NM)
 
     result = {
       gameId: currentServerGameData.gameId,
@@ -141,8 +148,9 @@ export async function getCurrentGame(req, res, next) {
     currentRecipe = recipeDataListFile[currentServerGameData.recipeIndex];
 
 
-    currentServerGameData.hint2 = currentRecipe.RCP_PARTS_DTLS
+    currentServerGameData.hint2 = currentServerGameData.currentRecipe.RCP_PARTS_DTLS
 
+    console.log("currentServerGameData", currentServerGameData?.currentRecipe?.RCP_NM)
 
     result = {
       gameId: currentServerGameData.gameId,
@@ -165,6 +173,7 @@ export async function getCurrentGame(req, res, next) {
 
 
     currentServerGameData.answerBlankData = currentRecipe.RCP_NM;
+    console.log("currentServerGameData", currentServerGameData?.currentRecipe?.RCP_NM)
 
     result = {
       gameId: currentServerGameData.gameId,

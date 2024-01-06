@@ -18,7 +18,7 @@ export const recipeData = JSON.parse(readFileSync("./src/data/recipe.json", "utf
 export const currentGameData = {
   recipeIndex: null, // 
   gameId: null,
-  startTime: null,
+  startTime: new Date().toISOString(),
   answerBlankData: null,
   mainImageUrl: null,
   hint1: null,
