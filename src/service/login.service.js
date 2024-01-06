@@ -1,10 +1,25 @@
+import { v4 as uuidv4 } from 'uuid';
+import { userMap } from '../globals.js';
+
 export async function login(req, res, next) {
 
+  const uuid = uuidv4();
+  const username = req.body.username;
+
+  userMap.set(uuid, { username });
 
   const result = {
-    foo: "bar",
+    data: {
+      username,
+      userUuid: uuid
+    },
+    message: "success"
   }
+
   try {
+    res.setHeader("Content-Type", "application/json");
+    // set cookie key as user-uuid, and value as uuid, domain is api.yoriquiz.site expires in 1 day
+    res.cookie('user-uuid', uuid, { domain: 'api.yoriquiz.site', maxAge: 86400000 });
     res.json(result);
   } catch (err) {
     console.error(`Error while getting programming languages`, err.message);
