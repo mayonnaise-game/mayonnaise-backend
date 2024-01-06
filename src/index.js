@@ -1,12 +1,11 @@
 // bootstrap express app
 
 import express from 'express';
+import leaderboardRouter from './routes/leaderboard.route';
 
 const app = express();
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
+app.use("/leaderboard", leaderboardRouter);
 
 app.listen(3000, () => {
   console.log('Example app listening on port 3000!');
