@@ -36,6 +36,7 @@ const getMyself = (req, res, next) => {
 
 
   const userUuid = cookieUuid ?? req.query.userUuid;
+  // const userUuid = req.query.userUuid;
   console.log("req.cookies", req.cookies)
   try {
     authUuid(userUuid);
@@ -54,7 +55,7 @@ const getMyself = (req, res, next) => {
 
     res.status(401);
     res.json({
-      error: true,
+      error: JSON.stringify(err),
       message: "Invalid Request",
     });
   }
