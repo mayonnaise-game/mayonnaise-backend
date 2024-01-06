@@ -33,7 +33,6 @@ const getChats = (req, res, next) => {
         isCurrentUser,
         chatData,
         createdAt,
-        isAnswerCorrect,
       });
     }
     res.json({ data, message: "success" });
