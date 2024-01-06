@@ -5,7 +5,7 @@ function login(req, res, next) {
   const uuid = uuidv4();
   const username = req.body.username;
 
-  userMap.set(uuid, { username });
+  userMap.set(uuid, { username, score: 0, heart: 3 });
 
   const result = {
     data: {
@@ -22,8 +22,8 @@ function login(req, res, next) {
     res.cookie("user-uuid", uuid, {
       domain: "yoriquiz.site",
       expires: new Date(Date.now() + 86400000),
-      secure: true,    // this will set the Secure flag
-      httpOnly: true   // this will set the HttpOnly flag
+      secure: true, // this will set the Secure flag
+      httpOnly: true, // this will set the HttpOnly flag
     });
     res.json(result);
   } catch (err) {
