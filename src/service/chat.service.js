@@ -17,7 +17,7 @@ const getChats = (req, res, next) => {
         message: "lastMessageIndex is required.",
       });
     }
-    const newChatData = chats.data.slice(lastMessageIndex - chats.startIndex);
+    const newChatData = chats.data.slice(lastMessageIndex - chats.startIndex + 1);
 
     const data = [];
     for (const { uuid, createdAt, chatData } of newChatData) {
