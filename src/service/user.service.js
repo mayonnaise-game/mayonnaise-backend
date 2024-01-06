@@ -41,7 +41,7 @@ const getMyself = (req, res, next) => {
   try {
     authUuid(userUuid);
 
-    const user = userMap(userUuid);
+    const user = userMap.get(userUuid);
     const data = {
       userUuid,
       username: user.username,
