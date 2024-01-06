@@ -9,7 +9,7 @@ const getCurrentUsers = (req, res, next) => {
     authUuid(userUuid);
 
     const data = [];
-    for (const [uuid, user] of userMap) {
+    userMap.forEach((user, uuid) => {
       data.push({
         uuid,
         username: user.username,
@@ -17,7 +17,7 @@ const getCurrentUsers = (req, res, next) => {
         heart: user.heart,
         isCurrentUser: uuid === userUuid,
       });
-    }
+    });
     data.sort((a, b) => b.score - a.score);
     res.json({ data, message: "success" });
   } catch (err) {
