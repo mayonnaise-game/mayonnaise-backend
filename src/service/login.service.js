@@ -11,6 +11,7 @@ function login(req, res, next) {
     data: {
       username,
       userUuid: uuid,
+      lastMessageIndex: chats.startIndex + chats.data.length - 1,
     },
     message: "success",
   };
