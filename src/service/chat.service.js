@@ -18,7 +18,9 @@ const getChats = (req, res, next) => {
         message: "lastMessageIndex is required.",
       });
     }
-    const newChatData = chats.data.slice(lastMessageIndex - chats.startIndex + 1);
+    const newChatData = chats.data.slice(
+      lastMessageIndex - chats.startIndex + 1
+    );
 
     const data = [];
     for (const { uuid, createdAt, chatData } of newChatData) {
@@ -26,6 +28,7 @@ const getChats = (req, res, next) => {
       const isCurrentUser = userUuid === uuid;
 
       data.push({
+        index: lastMessageIndex + 1 + data.length,
         user: { username },
         isCurrentUser,
         chatData,
@@ -64,7 +67,8 @@ const addChat = (req, res, next) => {
     }
     const answer = currentGameData.currentRecipe.RCP_MM;
     const isAnswerCorrect = answer === userInput;
-    if (isAnswerCorrect) { // 정답자에게 점수 주고 다음 게임으로 속행
+    if (isAnswerCorrect) {
+      // 정답자에게 점수 주고 다음 게임으로 속행
       userMap.get(userUuid).score += SCORE;
       nextGame();
     }
