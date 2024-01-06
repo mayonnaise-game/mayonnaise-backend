@@ -43,7 +43,7 @@ const getMyself = (req, res, next) => {
 
     const user = userMap.get(userUuid);
     const data = {
-      userUuid,
+      uuid: userUuid,
       username: user.username,
       score: user.score,
       heart: user.heart,
