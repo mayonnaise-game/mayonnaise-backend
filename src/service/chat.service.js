@@ -86,6 +86,8 @@ const addChat = (req, res, next) => {
     res.status(401);
     res.json({
       error: true,
+      userMap,
+      userUuid,
       message: "Invalid Request",
     });
   }
