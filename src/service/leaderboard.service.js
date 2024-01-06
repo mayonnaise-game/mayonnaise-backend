@@ -1,4 +1,5 @@
 import { userMap, leaderboard, writeLeaderboard } from "../globals.js";
+import { authUuid } from "../utils/auth.js";
 
 const LEADERBOARD_MAX_LENGTH = 100;
 
