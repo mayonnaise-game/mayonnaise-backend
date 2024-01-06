@@ -13,7 +13,7 @@ const app = express();
 const port = 8080;
 
 const corsOptions = {
-  origin: '*',
+  origin: ["http://localhost:3000", "https://local.yoriquiz.site"],
   credentials: true
 }
 
