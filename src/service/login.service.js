@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import { userMap } from "../globals.js";
+import { userMap, chats } from "../globals.js";
 
 function login(req, res, next) {
   const uuid = uuidv4();
@@ -11,6 +11,7 @@ function login(req, res, next) {
     data: {
       username,
       userUuid: uuid,
+      lastMessageIndex: chats.startIndex + chats.data.length - 1,
     },
     message: "success",
   };
