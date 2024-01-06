@@ -66,6 +66,7 @@ const addChat = (req, res, next) => {
       chats.data.splice(0, diff);
     }
     const answer = currentGameData.currentRecipe.RCP_MM;
+    console.log(`answer: ${answer}, userInput: ${userInput}`);
     const isAnswerCorrect = answer.trim() === userInput.trim();
     if (isAnswerCorrect) {
       // 정답자에게 점수 주고 다음 게임으로 속행
