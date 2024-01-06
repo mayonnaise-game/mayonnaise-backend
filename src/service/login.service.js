@@ -19,7 +19,7 @@ function login(req, res, next) {
     res.setHeader("Content-Type", "application/json");
     // set cookie key as user-uuid, and value as uuid, domain is api.yoriquiz.site expires in 1 day
     res.cookie("user-uuid", uuid, {
-      domain: "api.yoriquiz.site",
+      domain: ".yoriquiz.site",
       maxAge: 86400000,
     });
     res.json(result);
