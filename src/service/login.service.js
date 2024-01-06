@@ -22,6 +22,7 @@ function login(req, res, next) {
     res.cookie("user-uuid", uuid, {
       domain: "api.yoriquiz.site",
       expires: new Date(Date.now() + 86400000),
+      sameSite: "none",
     });
     res.json(result);
   } catch (err) {
