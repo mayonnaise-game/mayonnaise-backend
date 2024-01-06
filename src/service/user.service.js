@@ -2,7 +2,10 @@ import { userMap } from "../globals.js";
 import { authUuid } from "../utils/auth.js";
 
 const getCurrentUsers = (req, res, next) => {
-  const { "user-uuid": userUuid } = req.cookies;
+  const { "user-uuid": cookieUuid } = req.cookies;
+
+  const userUuid = cookieUuid ?? req.query.userUuid;
+
   try {
     authUuid(userUuid);
 
@@ -29,8 +32,10 @@ const getCurrentUsers = (req, res, next) => {
 };
 
 const getMyself = (req, res, next) => {
-  const { "user-uuid": userUuid } = req.cookies;
+  const { "user-uuid": cookieUuid } = req.cookies;
 
+
+  const userUuid = cookieUuid ?? req.query.userUuid;
   console.log("req.cookies", req.cookies)
   try {
     authUuid(userUuid);
