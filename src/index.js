@@ -14,7 +14,7 @@ const port = 8080;
 
 const corsOptions = {
   origin: '*',
-  credentials: true
+  credentials: true,
 }
 
 app.use(cors(corsOptions));
@@ -30,7 +30,7 @@ app.use((req, res, next) => {
 
 // allow methods 
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD, PATCH, CONNECT, TRACE, COPY, LINK, UNLINK, PURGE, LOCK, UNLOCK, PROPFIND, VIEW");
   next();
 });
 
