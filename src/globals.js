@@ -30,5 +30,6 @@ export const currentGameData = {
   hint2: null,
   // 서버에서만 사용
   currentRecipe: null,
+  hasInitialized: false, // 한번이라도 초기화 된 적 있는지
 }
 
