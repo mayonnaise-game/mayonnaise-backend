@@ -1,27 +1,56 @@
-import { userMap } from "../globals";
+import { userMap } from "../globals.js";
+import { authUuid } from "../utils/auth.js";
 
 const getCurrentUsers = (req, res, next) => {
   const { "user-uuid": userUuid } = req.cookies;
-  if (!userUuid | !userMap.has(userUuid)) {
-    // no uuid or not in current userMap
+  try {
+    authUuid(userUuid);
+
+    const data = [];
+    for (const [uuid, user] of userMap) {
+      data.push({
+        uuid,
+        username: user.username,
+        score: user.score,
+        heart: user.heart,
+        isCurrentUser: uuid === userUuid,
+      });
+    }
+    res.json({ data, message: "success" });
+  } catch (err) {
+    console.error(err);
+
     res.status(401);
     res.json({
       error: true,
       message: "Invalid Request",
     });
-    return;
   }
-  const data = [];
-  for (const [uuid, user] of userMap) {
-    data.push({
-      uuid,
+};
+
+const getMyself = (req, res, next) => {
+  const { "user-uuid": userUuid } = req.cookies;
+  try {
+    authUuid(userUuid);
+
+    const user = userMap(userUuid);
+    const data = {
+      userUuid,
       username: user.username,
       score: user.score,
       heart: user.heart,
-      isCurrentUser: uuid === userUuid,
+      isCurrentUser: true,
+    };
+    res.json({ data, message: "success" });
+  } catch (err) {
+    console.error(err);
+
+    res.status(401);
+    res.json({
+      error: true,
+      message: "Invalid Request",
     });
   }
-  res.json({ data, message: "success" });
 };
 
-export { getCurrentUsers };
+export { getCurrentUsers, getMyself };

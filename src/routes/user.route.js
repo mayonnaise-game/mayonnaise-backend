@@ -1,9 +1,9 @@
 import express from "express";
-import { getCurrentUsers } from "../service/user.service";
+import { getCurrentUsers, getMyself } from "../service/user.service";
 
 const router = express.Router();
 
 router.get("/current", getCurrentUsers);
-router.get("/me");
+router.get("/me", getMyself);
 
 export default router;
