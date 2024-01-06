@@ -22,6 +22,18 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+// allow credentials
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Credentials", "true");
+  next();
+});
+
+// allow methods 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  next();
+});
+
 app.use("/leaderboard", leaderboardRouter);
 app.use("/chats", chatRouter);
 app.use("/login", loginRouter);
