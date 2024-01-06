@@ -27,7 +27,7 @@ export function getCurrentGame(req, res, next) {
   const timeDiff = currentTime - previousStartTime;
 
 
-  let currentRecipe;
+
   let randomInt;
   console.log("timeDiff", timeDiff / 1000)
   let recipeHintServer = [];
@@ -51,11 +51,11 @@ export function getCurrentGame(req, res, next) {
     const recipeDataList = recipeData;
     // console.log("recipeDataList", recipeDataList)
     randomInt = Math.floor(Math.random() * 1000)
-    currentRecipe = recipeDataList[randomInt];
+    // currentRecipe = recipeDataList[randomInt];
     console.log("currentServerGameData", currentServerGameData?.currentRecipe?.RCP_NM)
     const gameId = uuidv4();
     // 새로운 게임으로 교체
-    const currentRecipeFoodName = currentRecipe.RCP_NM;
+    const currentRecipeFoodName = currentServerGameData?.currentRecipe?.RCP_NM;
     const answerBlankData = currentRecipeFoodName.replace(/[가-힣]/g, "_");
 
 
@@ -98,7 +98,7 @@ export function getCurrentGame(req, res, next) {
     const recipeIndex = currentServerGameData.recipeIndex ?? Math.floor(Math.random() * 1000);
     currentServerGameData.recipeIndex = recipeIndex;
 
-    currentRecipe = recipeDataListFile[currentServerGameData.recipeIndex];
+    // currentRecipe = recipeDataListFile[currentServerGameData.recipeIndex];
 
     const initialCompleteFoodImage = currentServerGameData.currentRecipe.ATT_FILE_NO_MAIN
     currentServerGameData.mainImageUrl = initialCompleteFoodImage;
