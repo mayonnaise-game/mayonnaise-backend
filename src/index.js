@@ -3,6 +3,7 @@
 import express from "express";
 import leaderboardRouter from "./routes/leaderboard.route.js";
 import loginRouter from "./routes/login.route.js";
+import chatRouter from "./routes/chat.route.js";
 
 const app = express();
 const port = 8080;
@@ -11,6 +12,8 @@ const port = 8080;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use("/leaderboard", leaderboardRouter);
+app.use("/chats", chatRouter);
 
 app.use("/leaderboard", leaderboardRouter);
 app.use("/login", loginRouter)
