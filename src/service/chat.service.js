@@ -1,33 +1,87 @@
-import { chats } from "../globals.js";
+import { userMap, chats, currentGameData } from "../globals.js";
+import { authUuid } from "../utils/auth.js";
+import { nextGame } from "../reset/nextGame.js";
+
+const SCORE = 100;
 
 const getChats = (req, res, next) => {
-  const { lastMessageIndex } = req.query;
-  if (!lastMessageIndex) {
+  const { "user-uuid": userUuid } = req.cookies;
+  try {
+    authUuid(userUuid);
+
+    const { lastMessageIndex } = req.query;
+    if (!lastMessageIndex) {
+      res.status(401);
+      res.json({
+        error: true,
+        message: "lastMessageIndex is required.",
+      });
+    }
+    const newChatData = chats.data.slice(lastMessageIndex - chats.startIndex);
+
+    const data = [];
+    for (const { uuid, createdAt, chatData } of newChatData) {
+      const { username } = userMap.get(uuid);
+      const isCurrentUser = userUuid === uuid;
+
+      data.push({
+        user: { username },
+        isCurrentUser,
+        chatData,
+        createdAt,
+        isAnswerCorrect,
+      });
+    }
+    res.json({ data, message: "success" });
+  } catch (err) {
+    console.error(err);
+
     res.status(401);
     res.json({
       error: true,
-      message: "lastMessageIndex is required.",
+      message: "Invalid Request",
     });
   }
-  res.send(chats.data.slice(lastMessageIndex - chats.startIndex));
 };
 
 const addChat = (req, res, next) => {
-  const { userInput } = req.body;
-  chats.data.push(userInput);
-  if (chats.data.length > chats.THRESHOLD) {
-    const diff = chats.data.length - chats.MAX_LENGTH;
-    chats.startIndex += diff;
-    chats.data.splice(0, diff);
+  try {
+    authUuid(userUuid);
+
+    const { userInput } = req.body;
+    chats.data.push({
+      uuid: userUuid,
+      createdAt: new Date().toISOString(),
+      chatData: userInput,
+    });
+    if (chats.data.length > chats.THRESHOLD) {
+      const diff = chats.data.length - chats.MAX_LENGTH;
+      chats.startIndex += diff;
+      chats.data.splice(0, diff);
+    }
+    const answer = currentGameData.currentRecipe.RCP_MM;
+    const isAnswerCorrect = answer === userInput;
+    if (isAnswerCorrect) { // 정답자에게 점수 주고 다음 게임으로 속행
+      userMap.get(userUuid).score += SCORE;
+      nextGame();
+    }
+    res.json({
+      data: {
+        userInput,
+        messageIndex: chats.startIndex + chats.data.length - 1,
+        isAnswerCorrect,
+      },
+      message: "success",
+    });
+  } catch (err) {
+    console.error(err);
+
+    res.status(401);
+    res.json({
+      error: true,
+      message: "Invalid Request",
+    });
   }
-  res.json({
-    data: {
-      userInput,
-      messageIndex: chats.startIndex + chats.data.length - 1,
-      isAnswerCorrect: true, // TODO
-    },
-    message: "success",
-  });
 };
 
 export { getChats, addChat };
