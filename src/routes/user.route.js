@@ -1,5 +1,5 @@
 import express from "express";
-import { getCurrentUsers, getMyself } from "../service/user.service";
+import { getCurrentUsers, getMyself } from "../service/user.service.js";
 
 const router = express.Router();
 
