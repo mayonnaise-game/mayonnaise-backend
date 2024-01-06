@@ -17,9 +17,13 @@ export const recipeData = JSON.parse(readFileSync("./src/data/recipe.json", "utf
 
 export const currentGameData = {
   recipeIndex: null, // 
-  gameId: "",
-  startTime: new Date().toISOString(),
-  answerBlankData: "",
-  recipeHint: [],
+  gameId: null,
+  startTime: null,
+  answerBlankData: null,
+  mainImageUrl: null,
+  hint1: null,
+  hint2: null,
+  // 서버에서만 사용
+  currentRecipe: null,
 }
 
