@@ -109,7 +109,7 @@ export function getCurrentGame(req, res, next) {
     const recipeIndex = currentServerGameData.recipeIndex ?? Math.floor(Math.random() * 1000);
     currentServerGameData.recipeIndex = recipeIndex;
 
-    currentRecipe = recipeDataListFile[currentServerGameData.recipeIndex];
+    // currentRecipe = recipeDataListFile[currentServerGameData.recipeIndex];
 
     const recipeStepImageList = getRecipeStepImageListFromObject(currentServerGameData?.currentRecipe);
     currentServerGameData.hint1 = recipeStepImageList;
@@ -134,7 +134,7 @@ export function getCurrentGame(req, res, next) {
     const recipeIndex = currentServerGameData.recipeIndex ?? Math.floor(Math.random() * 1000);
     currentServerGameData.recipeIndex = recipeIndex;
 
-    currentRecipe = recipeDataListFile[currentServerGameData.recipeIndex];
+    // currentRecipe = recipeDataListFile[currentServerGameData.recipeIndex];
 
 
     currentServerGameData.hint2 = currentServerGameData.currentRecipe.RCP_PARTS_DTLS
