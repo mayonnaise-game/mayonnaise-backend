@@ -3,17 +3,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { getRecipeStepImageListFromObject } from "../utils/getRecipeStepImageListFromObject.js";
 
 export function getCurrentGame(req, res, next) {
-
-
-  // 비인가 유저 막음 
-  // const userUuid = req.cookies['user-uuid'];
-
-  // if (!userUuid) {
-  //   res.status(401).send("Unauthorized");
-  //   return;
-  // }
-
-
   // 게임의 유효기간이 경과했을 때
   const currentGame = currentGameData
 
