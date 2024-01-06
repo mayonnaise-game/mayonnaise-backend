@@ -19,6 +19,7 @@ const getCurrentUsers = (req, res, next) => {
         isCurrentUser: uuid === userUuid,
       });
     }
+    data.sort((a, b) => b.score - a.score);
     res.json({ data, message: "success" });
   } catch (err) {
     console.error(err);
@@ -34,10 +35,9 @@ const getCurrentUsers = (req, res, next) => {
 const getMyself = (req, res, next) => {
   const { "user-uuid": cookieUuid } = req.cookies;
 
-
   const userUuid = cookieUuid ?? req.query.userUuid;
   // const userUuid = req.query.userUuid;
-  console.log("req.cookies", req.cookies)
+  console.log("req.cookies", req.cookies);
   try {
     authUuid(userUuid);
 
