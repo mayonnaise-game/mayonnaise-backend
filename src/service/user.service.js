@@ -30,6 +30,8 @@ const getCurrentUsers = (req, res, next) => {
 
 const getMyself = (req, res, next) => {
   const { "user-uuid": userUuid } = req.cookies;
+
+  console.log("req.cookies", req.cookies)
   try {
     authUuid(userUuid);
 
