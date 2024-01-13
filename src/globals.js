@@ -7,7 +7,7 @@ export const leaderboard = JSON.parse(
 export function writeLeaderboard() {
   writeFileSync("./src/data/leaderboard.json", JSON.stringify(leaderboard));
 }
-export const userMap = new Map(); // {uuid: {username, score, heart}}
+export const userMap = new Map(); // {uuid: {username, score, heart, lastUpdated}}
 
 export const chats = {
   MAX_LENGTH: 1000,
