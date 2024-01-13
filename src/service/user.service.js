@@ -14,9 +14,9 @@ const getCurrentUsers = (req, res, next) => {
     const currentTime = new Date().getTime();
     for (const [uuid, userInfo] of userMap) {
       // remove timeout users
-      if (userInfo.lastUpdated - currentTime > USER_TIMEOUT)
+      if (userInfo.lastUpdated - currentTime > USER_TIMEOUT) {
         userMap.delete(uuid); // safe to delete while iterating!
-      else
+      } else {
         currentUsers.push({
           uuid,
           username: user.username,
@@ -24,8 +24,9 @@ const getCurrentUsers = (req, res, next) => {
           heart: user.heart,
           isCurrentUser: uuid === userUuid,
         });
+      }
     }
-    
+
     currentUsers.sort((a, b) => b.score - a.score);
     res.json({ data: currentUsers, message: "success" });
   } catch (err) {
