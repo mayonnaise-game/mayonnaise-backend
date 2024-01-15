@@ -18,14 +18,13 @@ function login(req, res, next) {
   };
 
   try {
-    res.setHeader("Content-Type", "application/json");
-    res.cookie("user-uuid", uuid, {
-      maxAge: 60 * 60 * 1000, // expires in 1 hour
-      httpOnly: true, // this will set the HttpOnly flag
-      secure: true, // this will set the Secure flag
-      sameSite: "None",
-      domain: ".yoriquiz.site",
-    });
+    // res.cookie("user-uuid", uuid, {
+    //   maxAge: 60 * 60 * 1000, // expires in 1 hour
+    //   httpOnly: true, // this will set the HttpOnly flag
+    //   secure: true, // this will set the Secure flag
+    //   sameSite: "None",
+    //   domain: ".yoriquiz.site",
+    // });
 
     res.json(result);
   } catch (err) {
