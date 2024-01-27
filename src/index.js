@@ -10,11 +10,7 @@ import chatRouter from './routes/chat.route.js';
 import gamesRouter from './routes/games.route.js';
 import userRouter from './routes/user.route.js';
 
-const app = express();
-const server = createServer(app);
-const io = new Server(server);
 const port = 8080;
-
 const corsOptions = {
   origin: [
     'http://localhost:3000',
@@ -24,6 +20,9 @@ const corsOptions = {
   credentials: true,
 };
 
+const app = express();
+const httpServer = createServer(app);
+const io = new Server(httpServer, { cors: corsOptions });
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -42,6 +41,6 @@ io.on('connection', socket => {
   });
 });
 
-server.listen(port, () => {
+httpServer.listen(port, () => {
   console.log(`Example app listening on port ${port}!`);
 });
