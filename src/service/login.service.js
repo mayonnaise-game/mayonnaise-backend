@@ -1,5 +1,5 @@
-import { v4 as uuidv4 } from "uuid";
-import { userMap, chats } from "../globals.js";
+import { v4 as uuidv4 } from 'uuid';
+import { userMap, chats } from '../globals.js';
 
 function login(req, res, next) {
   const uuid = uuidv4();
@@ -13,7 +13,7 @@ function login(req, res, next) {
       userUuid: uuid,
       lastMessageIndex: chats.startIndex + chats.data.length - 1,
     },
-    message: "success",
+    message: 'success',
   };
 
   try {
@@ -30,7 +30,7 @@ function login(req, res, next) {
     // });
     res.json(result);
   } catch (err) {
-    console.error("Error while getting programming languages: ", err.message);
+    console.error('Error while getting programming languages: ', err.message);
     next(err);
   }
 }
