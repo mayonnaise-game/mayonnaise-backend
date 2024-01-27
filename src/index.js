@@ -1,8 +1,8 @@
-// bootstrap express app
-
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import { createServer } from 'http';
+import { Server } from 'socket.io';
 
 import leaderboardRouter from './routes/leaderboard.route.js';
 import loginRouter from './routes/login.route.js';
@@ -11,6 +11,8 @@ import gamesRouter from './routes/games.route.js';
 import userRouter from './routes/user.route.js';
 
 const app = express();
+const server = createServer(app);
+const io = new Server(server);
 const port = 8080;
 
 const corsOptions = {
@@ -33,6 +35,13 @@ app.use('/login', loginRouter);
 app.use('/games', gamesRouter);
 app.use('/users', userRouter);
 
-app.listen(port, () => {
+io.on('connection', socket => {
+  console.log('A user connected with socketID: ', socket.id);
+  socket.on('disconnect', () => {
+    console.log('A user disconnected with socketID: ', socket.id);
+  });
+});
+
+server.listen(port, () => {
   console.log(`Example app listening on port ${port}!`);
 });
