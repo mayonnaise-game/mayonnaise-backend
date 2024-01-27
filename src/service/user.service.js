@@ -1,8 +1,8 @@
-import { userMap } from '../globals.js';
-import { authUuid } from '../utils/auth.js';
+import { userMap } from "../globals.js";
+import { authUuid } from "../utils/auth.js";
 
 const getCurrentUsers = (req, res, next) => {
-  const { 'user-uuid': cookieUuid } = req.cookies;
+  const { "user-uuid": cookieUuid } = req.cookies;
   const userUuid = cookieUuid ?? req.query.userUuid;
 
   try {
@@ -19,23 +19,23 @@ const getCurrentUsers = (req, res, next) => {
       });
     });
     data.sort((a, b) => b.score - a.score);
-    res.json({ data, message: 'success' });
+    res.json({ data, message: "success" });
   } catch (err) {
     console.error(err);
 
     res.status(401);
     res.json({
       error: true,
-      message: 'Invalid Request',
+      message: "Invalid Request",
     });
   }
 };
 
 const getMyself = (req, res, next) => {
-  const { 'user-uuid': cookieUuid } = req.cookies;
+  const { "user-uuid": cookieUuid } = req.cookies;
   const userUuid = cookieUuid ?? req.query.userUuid;
 
-  console.log('req.cookies', req.cookies);
+  console.log("req.cookies", req.cookies);
   try {
     authUuid(userUuid);
 
@@ -47,14 +47,14 @@ const getMyself = (req, res, next) => {
       heart: user.heart,
       isCurrentUser: true,
     };
-    res.json({ data, message: 'success' });
+    res.json({ data, message: "success" });
   } catch (err) {
     console.error(err);
 
     res.status(401);
     res.json({
       error: JSON.stringify(err),
-      message: 'Invalid Request',
+      message: "Invalid Request",
     });
   }
 };

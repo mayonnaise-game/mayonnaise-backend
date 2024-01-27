@@ -1,11 +1,11 @@
-import { readFileSync, writeFileSync } from 'fs';
+import { readFileSync, writeFileSync } from "fs";
 
 export const leaderboard = JSON.parse(
-  readFileSync('./src/data/leaderboard.json', 'utf-8')
+  readFileSync("./src/data/leaderboard.json", "utf-8")
 );
 
 export function writeLeaderboard() {
-  writeFileSync('./src/data/leaderboard.json', JSON.stringify(leaderboard));
+  writeFileSync("./src/data/leaderboard.json", JSON.stringify(leaderboard));
 }
 export const userMap = new Map(); // {uuid: {username, score, heart}}
 
@@ -17,11 +17,11 @@ export const chats = {
 };
 
 export const recipeData = JSON.parse(
-  readFileSync('./src/data/recipe.json', 'utf-8')
+  readFileSync("./src/data/recipe.json", "utf-8")
 ).COOKRCP01.row;
 
 export const currentGameData = {
-  recipeIndex: null, //
+  recipeIndex: null, // 
   gameId: null,
   startTime: new Date().toISOString(),
   answerBlankData: null,
@@ -31,4 +31,5 @@ export const currentGameData = {
   // 서버에서만 사용
   currentRecipe: null,
   hasInitialized: false, // 한번이라도 초기화 된 적 있는지
-};
+}
+

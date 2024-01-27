@@ -1,11 +1,11 @@
-import { userMap, chats, currentGameData } from '../globals.js';
-import { authUuid } from '../utils/auth.js';
-import { nextGame } from '../reset/nextGame.js';
+import { userMap, chats, currentGameData } from "../globals.js";
+import { authUuid } from "../utils/auth.js";
+import { nextGame } from "../reset/nextGame.js";
 
 const SCORE = 100;
 
 const getChats = (req, res, next) => {
-  const { 'user-uuid': cookieUuid } = req.cookies;
+  const { "user-uuid": cookieUuid } = req.cookies;
   const userUuid = cookieUuid ?? req.query.userUuid;
   try {
     authUuid(userUuid);
@@ -15,7 +15,7 @@ const getChats = (req, res, next) => {
       res.status(401);
       res.json({
         error: true,
-        message: 'lastMessageIndex is required.',
+        message: "lastMessageIndex is required.",
       });
     }
     const newChatData = chats.data.slice(
@@ -35,20 +35,20 @@ const getChats = (req, res, next) => {
         createdAt,
       });
     }
-    res.json({ data, message: 'success' });
+    res.json({ data, message: "success" });
   } catch (err) {
     console.error(err);
 
     res.status(401);
     res.json({
       error: true,
-      message: 'Invalid Request',
+      message: "Invalid Request",
     });
   }
 };
 
 const addChat = (req, res, next) => {
-  const { 'user-uuid': cookieUuid } = req.cookies;
+  const { "user-uuid": cookieUuid } = req.cookies;
   const userUuid = cookieUuid ?? req.query.userUuid;
   try {
     authUuid(userUuid);
@@ -78,7 +78,7 @@ const addChat = (req, res, next) => {
         messageIndex: chats.startIndex + chats.data.length - 1,
         isAnswerCorrect,
       },
-      message: 'success',
+      message: "success",
     });
   } catch (err) {
     console.error(err);
@@ -88,7 +88,7 @@ const addChat = (req, res, next) => {
       error: true,
       userMap,
       userUuid,
-      message: 'Invalid Request',
+      message: "Invalid Request",
     });
   }
 };
