@@ -23,6 +23,9 @@ const addLeaderboard = (req, res, next) => {
       }
     }
     if (leaderboard.length > LEADERBOARD_MAX_LENGTH) {
+      // TODO: 이것 import 한 변수에 재할당하는 것 고칠 필요가 있습니다. 
+      // 아래 주석은 임시로 해두었습니다. 
+      // eslint-disable-next-line no-import-assign
       leaderboard = leaderboard.slice(0, LEADERBOARD_MAX_LENGTH);
     }
     res.send('success');
