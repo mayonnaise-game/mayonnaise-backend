@@ -1,5 +1,5 @@
-import { userMap, leaderboard, writeLeaderboard } from "../globals.js";
-import { authUuid } from "../utils/auth.js";
+import { userMap, leaderboard, writeLeaderboard } from '../globals.js';
+import { authUuid } from '../utils/auth.js';
 
 const LEADERBOARD_MAX_LENGTH = 100;
 
@@ -8,7 +8,7 @@ const getLeaderboard = (req, res, next) => {
 };
 
 const addLeaderboard = (req, res, next) => {
-  const { "user-uuid": cookieUuid } = req.cookies;
+  const { 'user-uuid': cookieUuid } = req.cookies;
   const userUuid = cookieUuid ?? req.query.userUuid;
   try {
     authUuid(userUuid);
@@ -23,9 +23,12 @@ const addLeaderboard = (req, res, next) => {
       }
     }
     if (leaderboard.length > LEADERBOARD_MAX_LENGTH) {
+      // TODO: 이것 import 한 변수에 재할당하는 것 고칠 필요가 있습니다. 
+      // 아래 주석은 임시로 해두었습니다. 
+      // eslint-disable-next-line no-import-assign
       leaderboard = leaderboard.slice(0, LEADERBOARD_MAX_LENGTH);
     }
-    res.send("success");
+    res.send('success');
     writeLeaderboard();
   } catch (err) {
     console.error(err);
@@ -33,7 +36,7 @@ const addLeaderboard = (req, res, next) => {
     res.status(401);
     res.json({
       error: true,
-      message: "Invalid Request",
+      message: 'Invalid Request',
     });
   }
 };
