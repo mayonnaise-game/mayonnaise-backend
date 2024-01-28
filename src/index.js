@@ -36,13 +36,26 @@ app.use('/users', userRouter);
 
 io.on('connection', socket => {
   console.log('A user connected with socketID: ', socket.id);
+
+  // Notify all clients when a user connects
+  io.emit('broadcast', `${socket.id} 유저가 입장하였습니다!`);
+
   socket.on('disconnect', () => {
     console.log('A user disconnected with socketID: ', socket.id);
+    // Optionally, notify all clients when a user disconnects
+    io.emit('broadcast', `${socket.id} 유저가 퇴장하였습니다!`);
   });
+
   socket.on('hello', () => {
     console.log('hello from socketID: ', socket.id);
   });
-  io.emit('hello');
+
+  // Listen for 'message' events from clients
+  socket.on('message', (message) => {
+    console.log('Message received from socketID: ', socket.id, ': ', message);
+    // Broadcast the received message to all clients
+    io.emit('broadcast', `Message from ${socket.id}: ${message}`);
+  });
 });
 
 httpServer.listen(port, () => {
