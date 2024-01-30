@@ -64,7 +64,7 @@ const addChat = (req, res, next) => {
       chats.startIndex += diff;
       chats.data.splice(0, diff);
     }
-    const answer = currentGameData.currentRecipe.RCP_MM;
+    const answer = currentGameData.currentRecipe.RCP_NM;
     console.log(`answer: ${answer}, userInput: ${userInput}`);
     const isAnswerCorrect = answer.trim() === userInput.trim();
     if (isAnswerCorrect) {
