@@ -16,6 +16,7 @@ const corsOptions = {
     'http://localhost:3000',
     'https://local.yoriquiz.site',
     'https://yoriquiz.site',
+    'https://dev.yoriquiz.site',
   ],
   credentials: true,
 };
